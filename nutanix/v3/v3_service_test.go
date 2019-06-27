@@ -10,8 +10,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/terraform-providers/terraform-provider-nutanix/client"
-	"github.com/terraform-providers/terraform-provider-nutanix/utils"
+	client "github.com/thetonymaster/nutanix-go-client/nutanix"
+	"github.com/thetonymaster/nutanix-go-client/utils"
 )
 
 func setup() (*http.ServeMux, *client.Client, *httptest.Server) {
