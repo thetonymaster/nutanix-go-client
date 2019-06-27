@@ -1,8 +1,6 @@
 package v3
 
-import (
-	"github.com/terraform-providers/terraform-provider-nutanix/client"
-)
+import client "github.com/thetonymaster/nutanix-go-client/nutanix"
 
 // Client manages the V3 API
 type Client struct {
