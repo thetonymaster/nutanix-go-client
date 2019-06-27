@@ -1,4 +1,4 @@
-package client
+package nutanix
 
 import (
 	"bytes"
@@ -13,7 +13,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/terraform-providers/terraform-provider-nutanix/utils"
+	"github.com/thetonymaster/nutanix-go-client/utils"
 )
 
 const (
