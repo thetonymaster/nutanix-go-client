@@ -9,8 +9,8 @@ type Client struct {
 }
 
 // NewV3Client return a client to operate V3 resources
-func NewV3Client(credentials client.Credentials) (*Client, error) {
-	c, err := client.NewClient(&credentials)
+func NewV3Client(credentials client.Credentials, debug bool) (*Client, error) {
+	c, err := client.NewClient(&credentials, debug)
 
 	if err != nil {
 		return nil, err
