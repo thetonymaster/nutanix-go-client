@@ -39,6 +39,7 @@ type Client struct {
 
 	// Optional function called after every successful request made.
 	onRequestCompleted RequestCompletionCallback
+	Debug              bool
 }
 
 // RequestCompletionCallback defines the type of the request callback function
@@ -56,7 +57,7 @@ type Credentials struct {
 }
 
 // NewClient returns a new Nutanix API client.
-func NewClient(credentials *Credentials) (*Client, error) {
+func NewClient(credentials *Credentials, debug bool) (*Client, error) {
 
 	transCfg := &http.Transport{
 		// nolint:gas
@@ -83,7 +84,7 @@ func NewClient(credentials *Credentials) (*Client, error) {
 		return nil, err
 	}
 
-	c := &Client{credentials, httpClient, baseURL, userAgent, nil}
+	c := &Client{credentials, httpClient, baseURL, userAgent, nil, debug}
 
 	return c, nil
 }
@@ -155,13 +156,17 @@ func (c *Client) OnRequestCompleted(rc RequestCompletionCallback) {
 // Do performs request passed
 func (c *Client) Do(ctx context.Context, req *http.Request, v interface{}) error {
 	req = req.WithContext(ctx)
-	utils.DebugRequest(req)
+	if c.Debug {
+		utils.DebugRequest(req)
+	}
 	resp, err := c.client.Do(req)
 	if err != nil {
 		return err
 	}
 
-	utils.DebugResponse(resp)
+	if c.Debug {
+		utils.DebugResponse(resp)
+	}
 	defer func() {
 		if rerr := resp.Body.Close(); err == nil {
 			err = rerr
